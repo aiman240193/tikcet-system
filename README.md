@@ -17,6 +17,6 @@ Permette di:
 
 E' possibile eseguire il progetto dalla cartella root con il comando "docker-compose up", l'homepage sarà accessibile all'indirizzo localhost:80 
 
-Maggiori dettagli relativi gli endpoint esposti dai servizi sono reprivili a http://localhost:8080/swagger-ui/index.html#/
+Maggiori dettagli relativi gli endpoint esposti dai servizi sono repribili a http://localhost:8080/swagger-ui/index.html#/
 
 
