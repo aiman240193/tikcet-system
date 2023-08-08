@@ -1,0 +1,54 @@
+<div class="grid-container">
+  <section>
+    <div class="title-label">
+      <h1 class="mat-h1">Login</h1>
+      <p>Login Page</p>
+    </div>
+  </section>
+  <mat-grid-list [cols]="(cardLayout | async)?.columns" rowHeight="700px">
+    <mat-grid-tile [colspan]="(cardLayout | async)?.login.cols" [rowspan]="(cardLayout | async)?.login.rows">
+      <app-card title="Login">
+        <div class="col-md-12">
+          <div class="card card-container">
+            <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+            <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+              <div class="form-group">
+                <mat-form-field>
+                  <mat-label>Username</mat-label>
+                  <input matInput type="text" name="username" [(ngModel)]="form.username" required
+                    #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.errors }" />
+                  <mat-error *ngIf="username.errors && f.submitted">Username is required!</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-form-field>
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" name="password" [(ngModel)]="form.password" required
+                    minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+                  <mat-error *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors['required']">Password is required</div>
+                    <div *ngIf="password.errors['minlength']">
+                      Password must be at least 6 characters
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <button mat-raised-button color="primary" type="submit">Login</button>
+              </div>
+              <div class="form-group">
+                <div *ngIf="f.submitted && isLoginFailed" class="mat-alert mat-alert-danger" role="alert">
+                  Login failed: {{ errorMessage }}
+                </div>
+              </div>
+            </form>
+
+            <div *ngIf="isLoggedIn" class="mat-alert mat-alert-success">
+              Logged in as {{ roles }}.
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

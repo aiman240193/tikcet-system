@@ -1,0 +1,65 @@
+<div class="grid-container">
+  <section>
+    <div class="title-label">
+      <h1 class="mat-h1">Signup</h1>
+      <p>Di seguito la pagina per registrare una nuova utenza:</p>
+    </div>
+  </section>
+  <mat-grid-list [cols]="(cardLayout | async)?.columns" rowHeight="700px">
+    <mat-grid-tile [colspan]="(cardLayout | async)?.registration.cols"
+      [rowspan]="(cardLayout | async)?.registration.rows">
+      <app-card title="Signup">
+        <div class="col-md-12">
+          <div class="card card-container">
+            <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+            <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+              <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Username</mat-label>
+                  <input matInput type="text" name="username" [(ngModel)]="form.username" required minlength="3"
+                    maxlength="20" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.errors }" />
+                  <mat-error *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors['required']">Username is required</div>
+                    <div *ngIf="username.errors['minlength']">Username must be at least 3 characters</div>
+                    <div *ngIf="username.errors['maxlength']">Username must be at most 20 characters</div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" name="email" [(ngModel)]="form.email" required email #email="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+                  <mat-error *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors['required']">Email is required</div>
+                    <div *ngIf="email.errors['email']">Email must be a valid email address</div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" name="password" [(ngModel)]="form.password" required minlength="6"
+                    #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+                  <mat-error *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors['required']">Password is required</div>
+                    <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <button mat-raised-button color="primary" class="btn-block">Sign Up</button>
+              </div>
+              <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                Signup failed!<br />{{ errorMessage }}
+              </div>
+            </form>
+            <div class="alert alert-success" *ngIf="isSuccessful">
+              Your registration is successful!
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

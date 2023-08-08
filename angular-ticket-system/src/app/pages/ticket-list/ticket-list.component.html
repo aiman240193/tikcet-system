@@ -1,0 +1,27 @@
+<div class="grid-container">
+    <section>
+        <div class="title-label">
+            <h1 class="mat-h1">Ticket List</h1>
+            <p>Di seguito la lista dei ticket censiti:</p>
+        </div>
+    </section>
+    <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="700px">
+        <mat-grid-tile [colspan]="( cardLayout | async )?.tickets.cols"
+            [rowspan]="( cardLayout | async )?.tickets.rows">
+            <app-card title="Andamento chiusure settimanali Tickets">
+                <app-bar-charts [label]="'Chiusere settimanali'" [datas]="statistics.weeklyCompletions">
+                </app-bar-charts>
+            </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.tickets.cols"
+            [rowspan]="( cardLayout | async )?.tickets.rows">
+            <app-card title="Tickets">
+                <app-custom-table [tableData]="tickets" [tableColumns]="ticketsTableColumns" [isFilterable]="true"
+                    [isPageable]="true" [paginationSizes]="[2,4,6]" [defaultPageSize]="4"
+                    [rowActionIcon]="'remove_shopping_cart'" (rowAdd)="openDialogTicket('Add', {})"
+                    (rowEdit)="openDialogTicket('Update', $event)" (rowRemove)="openDialogTicket('Delete', $event)"
+                    (rowClick)="goToTicket($event)"></app-custom-table>
+            </app-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

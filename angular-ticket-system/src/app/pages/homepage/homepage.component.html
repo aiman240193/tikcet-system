@@ -1,0 +1,15 @@
+<div class="grid-container">
+    <section>
+        <div class="title-label">
+            <h1 class="mat-h1">HomePage</h1>
+            <p>Pagina Iniziale:</p>
+        </div>
+    </section>
+    <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="700px">
+        <mat-grid-tile [colspan]="( cardLayout | async )?.homepage.cols"
+            [rowspan]="( cardLayout | async )?.homepage.rows">
+            <app-card title="HomePage">
+            </app-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

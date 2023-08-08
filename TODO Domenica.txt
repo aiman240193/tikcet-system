@@ -1,0 +1,5 @@
+-Autenticazione e autorizzazione
+-State machine, kafka, websocket
+-Port su aws
+-Test
+-Logging e monitoring

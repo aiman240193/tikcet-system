@@ -1,0 +1,9 @@
+export enum Status{
+    TO_BE_ASSIGNED = "TO_BE_ASSIGNED",
+    ASSIGNED = "ASSIGNED",
+    ACCEPTED = "ACCEPTED",
+    DECLINED = "DECLINED",
+    STARTED = "STARTED",
+    BLOCKED = "BLOCKED",
+    CLOSED = "CLOSED"
+}

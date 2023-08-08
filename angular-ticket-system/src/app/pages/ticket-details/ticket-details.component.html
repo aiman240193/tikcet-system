@@ -1,0 +1,50 @@
+<div class="grid-container">
+    <section>
+        <div class="title-label">
+            <h1 class="mat-h1">Ticket Details</h1>
+            <p>Maggiori dettagli relativi il ticket:</p>
+        </div>
+    </section>
+    <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="700px">
+        <mat-grid-tile [colspan]="( cardLayout | async )?.tickets.cols"
+            [rowspan]="( cardLayout | async )?.tickets.rows">
+            <app-card title="Ticket {{id}}">
+                <p>{{ticket.description}}</p>
+                <app-comments ticket="ticket"></app-comments>
+            </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.tickets.cols"
+            [rowspan]="( cardLayout | async )?.tickets.rows">
+            <app-card title="Actions">
+                <h2>Status: {{ticket.status}}</h2>
+                <div *ngIf="(currentStatus=== allStatus.TO_BE_ASSIGNED)">
+                    <mat-form-field>
+                        <mat-label>Assign to</mat-label>
+                        <mat-select [formControl]="assignees">
+                            <mat-option *ngFor="let user of userList" [value]="user">{{user}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-button color="primary" (click)="assign()">Assign</button>
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.ASSIGNED)">
+                    <button mat-button color="primary" (click)="accept()">Accept</button>
+                    <button mat-button color="primary" (click)="decline()">Decline</button>
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.ACCEPTED)">
+                    <button mat-button color="primary" (click)="start()">Start</button>
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.DECLINED)">
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.STARTED)">
+                    <button mat-button color="primary" (click)="block()">Block</button>
+                    <button mat-button color="primary" (click)="close()">Close</button>
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.BLOCKED)">
+                    <button mat-button color="primary" (click)="restart()">Restart</button>
+                </div>
+                <div *ngIf="(currentStatus=== allStatus.CLOSED)">
+                </div>
+            </app-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
