@@ -90,7 +90,11 @@ export class TicketDetailsComponent implements OnInit {
     this.userData.findDataByUsername(this.assignees.value).subscribe({
       next: data => {
         this.user = data;
-        this.ticketData.assignTo(this.ticket.id, this.user.id).subscribe();
+        this.ticketData.assignTo(this.ticket.id, this.user.id).subscribe({
+          next: data => {
+            this.refresh();
+          }
+        });
       },
       error: err => {
       }
